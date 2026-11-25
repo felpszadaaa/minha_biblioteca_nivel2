@@ -11,7 +11,6 @@ Projeto de biblioteca executado pelo terminal. Nesta etapa, os dados ficam na me
 python main.py
 ```
 
-Não é necessário instalar bibliotecas externas nem configurar banco de dados.
 
 ## Funcionalidades
 
