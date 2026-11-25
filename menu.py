@@ -1,0 +1,130 @@
+from livros.livro import Livro
+from pessoas.aluno import Aluno
+from pessoas.professor import Professor
+from relatorios.relatorio import Relatorio
+
+
+def mostrar_menu():
+    print("\n===== MINHA BIBLIOTECA =====")
+    print("1 - Cadastrar livro")
+    print("2 - Cadastrar aluno")
+    print("3 - Cadastrar professor")
+    print("4 - Listar livros")
+    print("5 - Listar pessoas")
+    print("6 - Fazer empréstimo")
+    print("7 - Devolver livro")
+    print("8 - Ver empréstimos")
+    print("9 - Consultar livro pelo código")
+    print("10 - Consultar pessoa pela matrícula")
+    print("0 - Sair")
+
+
+def executar_menu(biblioteca):
+    while True:
+        mostrar_menu()
+        opcao = input("Escolha uma opção: ").strip()
+
+        if opcao == "1":
+            titulo = input("Título do livro: ").strip()
+            autor = input("Autor: ").strip()
+            if not titulo or not autor:
+                print("Preencha o título e o autor.")
+                continue
+
+            codigo = biblioteca.proximo_codigo()
+            livro = Livro(codigo, titulo, autor)
+            if biblioteca.adicionar_livro(livro):
+                print(f"Livro cadastrado! Código: {codigo}")
+            else:
+                print("Não foi possível cadastrar o livro.")
+
+        elif opcao == "2":
+            nome = input("Nome do aluno: ").strip()
+            matricula = input("Matrícula: ").strip()
+            curso = input("Curso: ").strip()
+            if not nome or not matricula or not curso:
+                print("Preencha todos os campos.")
+                continue
+
+            if biblioteca.adicionar_pessoa(Aluno(nome, matricula, curso)):
+                print("Aluno cadastrado com sucesso.")
+            else:
+                print("Já existe uma pessoa com essa matrícula.")
+
+        elif opcao == "3":
+            nome = input("Nome do professor: ").strip()
+            matricula = input("Matrícula: ").strip()
+            departamento = input("Departamento: ").strip()
+            if not nome or not matricula or not departamento:
+                print("Preencha todos os campos.")
+                continue
+
+            if biblioteca.adicionar_pessoa(Professor(nome, matricula, departamento)):
+                print("Professor cadastrado com sucesso.")
+            else:
+                print("Já existe uma pessoa com essa matrícula.")
+
+        elif opcao == "4":
+            if not biblioteca.livros:
+                print("Nenhum livro cadastrado.")
+            else:
+                for livro in biblioteca.livros:
+                    print(livro)
+
+        elif opcao == "5":
+            if not biblioteca.pessoas:
+                print("Nenhuma pessoa cadastrada.")
+            else:
+                for pessoa in biblioteca.pessoas:
+                    print(pessoa.apresentar())
+
+        elif opcao == "6":
+            try:
+                codigo = int(input("Código do livro: "))
+            except ValueError:
+                print("Digite um código numérico.")
+                continue
+
+            matricula = input("Matrícula da pessoa: ").strip()
+            if biblioteca.fazer_emprestimo(codigo, matricula):
+                print("Empréstimo realizado.")
+            else:
+                print("Confira o código, a matrícula e a disponibilidade do livro.")
+
+        elif opcao == "7":
+            try:
+                codigo = int(input("Código do livro que será devolvido: "))
+            except ValueError:
+                print("Digite um código numérico.")
+                continue
+
+            if biblioteca.devolver_livro(codigo):
+                print("Livro devolvido com sucesso.")
+            else:
+                print("Não existe empréstimo ativo para esse livro.")
+
+        elif opcao == "8":
+            relatorio = Relatorio()
+            print(relatorio.listar_emprestimos(biblioteca.emprestimos))
+
+        elif opcao == "9":
+            try:
+                codigo = int(input("Código do livro: "))
+            except ValueError:
+                print("Digite um código numérico.")
+                continue
+
+            livro = biblioteca.buscar_livro(codigo)
+            print(livro if livro else "Livro não encontrado.")
+
+        elif opcao == "10":
+            matricula = input("Matrícula da pessoa: ").strip()
+            pessoa = biblioteca.buscar_pessoa(matricula)
+            print(pessoa.apresentar() if pessoa else "Pessoa não encontrada.")
+
+        elif opcao == "0":
+            print("Até mais!")
+            break
+
+        else:
+            print("Opção inválida. Tente novamente.")
