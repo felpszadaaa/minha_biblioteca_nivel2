@@ -1,6 +1,6 @@
 # Minha Biblioteca — Desk App II
 
-Projeto de biblioteca executado pelo terminal. Nesta etapa, os dados ficam na memória enquanto o programa está aberto. Ao fechar o programa, os cadastros e empréstimos são perdidos.
+Projeto de biblioteca executado pelo terminal. Nesta etapa, os dados ficam na memória enquanto o programa está aberto. Ao fechar o programa, os cadastros e empréstimos são perdidos pois não tem um banco de dados.
 
 ## Como executar
 
