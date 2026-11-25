@@ -26,3 +26,6 @@ Não é necessário instalar bibliotecas externas nem configurar banco de dados.
 ## Menu
 
 O menu principal apresenta todas as opções e permanece disponível até escolher a opção `0 - Sair`.
+
+## Link Video Youtube
+## https://www.youtube.com/watch?v=YP3jpmyjiUU
